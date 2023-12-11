@@ -1,3 +1,6 @@
+# Generate File
+*.g.dart
+
 # Miscellaneous
 *.class
 *.log
