@@ -16,6 +16,6 @@ class MainViewModel {
       registeredDateTime: DateFormat('yyyy-MM-dd').format(DateTime.now()),
     );
 
-    await _hiveRepository.addTodos(todo);
+    await _hiveRepository.addTodo(todo);
   }
 }
