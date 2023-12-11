@@ -1,5 +1,6 @@
 # Generate File
 *.g.dart
+*.freezed.dart
 
 # Miscellaneous
 *.class
