@@ -33,7 +33,7 @@ Future initDI() async {
   /* Start Initialize ViewModel */
 
   mainProvider = Provider<MainViewModel>((ref) => MainViewModel(
-        hiveRepository: hiveRepository,
+        addTodoUseCase: addTodoUseCase,
       ));
 
   /* End Initialize ViewModel */
