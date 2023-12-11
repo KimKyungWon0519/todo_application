@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:todo_application/src/core/routes/app_pages.dart';
 
 import 'src/dependency_injection.dart';
@@ -12,7 +13,8 @@ void main() async {
 }
 
 Future _initialize() async {
-  await Hive.initFlutter();
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter((await getApplicationDocumentsDirectory()).path);
 }
 
 class MyApp extends StatelessWidget {
