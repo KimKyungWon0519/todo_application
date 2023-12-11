@@ -11,7 +11,7 @@ class HiveRepositoryImpl extends HiveRepository {
   }) : _hiveClient = hiveClient;
 
   @override
-  Future<void> addTodos(Todo todo) async {
+  Future<void> addTodo(Todo todo) async {
     await _hiveClient.addTodos(TodoMapper.entityToModel(todo));
   }
 }
