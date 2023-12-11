@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_application/src/features/main/domain/entities/todo_status.dart';
+import 'package:todo_application/src/features/main/presentation/pages/main_page/local_widgets/add_todo_fab.dart';
 import 'package:todo_application/src/features/main/presentation/pages/main_page/local_widgets/goal_status.dart';
 import 'package:todo_application/src/features/main/presentation/pages/main_page/local_widgets/todo_tile.dart';
 
@@ -31,10 +32,7 @@ class MainPage extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => {},
-        child: const Icon(Icons.add),
-      ),
+      floatingActionButton: const AddTodoFAB(),
     );
   }
 }
