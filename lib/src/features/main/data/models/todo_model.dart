@@ -9,14 +9,11 @@ class TodoModel {
   @HiveField(1)
   final String title;
   @HiveField(2)
-  final bool isComplete;
-  @HiveField(3)
   final String registeredDateTime;
 
   const TodoModel({
     required this.key,
     required this.title,
-    required this.isComplete,
     required this.registeredDateTime,
   });
 }
