@@ -9,6 +9,7 @@ import 'package:todo_application/src/features/main/presentation/presenter/main_v
 import 'package:todo_application/src/features/main/presentation/presenter/providers.dart';
 
 Future initDI() async {
+  Hive.registerAdapter(TodoModelAdapter());
   Box<List<TodoModel>> box = await Hive.openBox('todos');
 
   /* Start Initialize Data Source */
