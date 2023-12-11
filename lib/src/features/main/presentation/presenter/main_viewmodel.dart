@@ -1,5 +1,5 @@
 import 'package:intl/intl.dart';
-import 'package:todo_application/src/features/main/domain/entities/todo_model.dart';
+import 'package:todo_application/src/features/main/domain/entities/todo.dart';
 import 'package:todo_application/src/features/main/domain/usecases/hive_usecases.dart';
 
 class MainViewModel {
