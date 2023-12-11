@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_application/src/features/main/presentation/pages/main_page/local_widgets/goal_status.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({super.key});
@@ -14,8 +15,8 @@ class MainPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('오늘의 목표 : 10개'),
-            const Text('미달성 목표 : 10개'),
+            const AchievedTodo(),
+            const NotAchievedTodo(),
             const Divider(),
             CheckboxListTile(
               value: true,
