@@ -9,6 +9,17 @@ class MainPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('ToDo'),
       ),
+      body: const Padding(
+        padding: EdgeInsets.all(10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('오늘의 목표 : 10개'),
+            Text('미달성 목표 : 10개'),
+            Divider(),
+          ],
+        ),
+      ),
     );
   }
 }
