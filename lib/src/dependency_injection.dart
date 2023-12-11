@@ -3,6 +3,7 @@ import 'package:todo_application/src/features/main/data/data_sources/hive_client
 import 'package:todo_application/src/features/main/data/models/todo_model.dart';
 import 'package:todo_application/src/features/main/data/repositories/hive_repository_impl.dart';
 import 'package:todo_application/src/features/main/domain/repositories/hive_repository.dart';
+import 'package:todo_application/src/features/main/domain/usecases/hive_usecases.dart';
 
 Future initDI() async {
   Box<List<TodoModel>> box = await Hive.openBox('todos');
@@ -18,4 +19,11 @@ Future initDI() async {
   HiveRepository hiveRepository = HiveRepositoryImpl(hiveClient: hiveClient);
 
   /* End Initialize Repository */
+
+  /* Start Initialize UseCase */
+
+  AddTodoUseCase addTodoUseCase =
+      AddTodoUseCase(hiveRepository: hiveRepository);
+
+  /* End Initialize UseCase */
 }
