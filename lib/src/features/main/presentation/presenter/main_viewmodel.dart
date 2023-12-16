@@ -5,10 +5,13 @@ import 'package:todo_application/src/features/main/domain/usecases/hive_usecases
 
 class MainViewModel {
   final AddTodoUseCase _addTodoUseCase;
+  final GetTodoUseCase _getTodoUseCase;
 
   const MainViewModel({
     required AddTodoUseCase addTodoUseCase,
-  }) : _addTodoUseCase = addTodoUseCase;
+    required GetTodoUseCase getTodoUseCase,
+  })  : _addTodoUseCase = addTodoUseCase,
+        _getTodoUseCase = getTodoUseCase;
 
   Future<void> addTodo(String title) async {
     Todo todo = Todo(

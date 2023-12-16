@@ -38,6 +38,7 @@ Future initDI() async {
 
   mainProvider = Provider<MainViewModel>((ref) => MainViewModel(
         addTodoUseCase: addTodoUseCase,
+        getTodoUseCase: getTodoUseCase,
       ));
 
   /* End Initialize ViewModel */
