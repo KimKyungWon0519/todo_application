@@ -1,5 +1,5 @@
 enum TodoStatus {
-  nonState,
+  none,
   achieved,
   notAchieved,
 }

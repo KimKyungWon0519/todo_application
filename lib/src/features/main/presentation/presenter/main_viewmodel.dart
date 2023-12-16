@@ -15,7 +15,7 @@ class MainViewModel {
       key: -1,
       title: title,
       registeredDateTime: DateFormat('yyyy-MM-dd').format(DateTime.now()),
-      status: TodoStatus.nonState,
+      status: TodoStatus.none,
     );
 
     await _addTodoUseCase.addTodo(todo);
