@@ -2,6 +2,7 @@ import 'package:todo_application/src/features/main/data/data_sources/hive_client
 import 'package:todo_application/src/features/main/data/mappers/todo_mapper.dart';
 import 'package:todo_application/src/features/main/data/models/todo_model.dart';
 import 'package:todo_application/src/features/main/domain/entities/todo.dart';
+import 'package:todo_application/src/features/main/domain/entities/todo_status.dart';
 import 'package:todo_application/src/features/main/domain/repositories/hive_repository.dart';
 
 class HiveRepositoryImpl extends HiveRepository {
@@ -31,6 +32,9 @@ class HiveRepositoryImpl extends HiveRepository {
 
   @override
   List<Todo> getNonStateTodos() {
-    return _hiveClient.getNonStateTodos().map((e) => e.toEntity()).toList();
+    return _hiveClient
+        .getNonStateTodos()
+        .map((e) => e.toEntity(TodoStatus.nonState))
+        .toList();
   }
 }
