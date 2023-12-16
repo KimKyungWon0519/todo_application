@@ -1,6 +1,6 @@
 import 'package:todo_application/src/features/main/domain/entities/todo.dart';
 
 abstract class HiveRepository {
-  Future<void> addTodo(Todo todo);
-  List<Todo> getRegisteredTodos();
+  Future<void> addNonStateTodos(Todo todo);
+  List<Todo> getNonStateTodos();
 }
