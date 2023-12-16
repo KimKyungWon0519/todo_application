@@ -29,6 +29,9 @@ Future initDI() async {
   AddTodoUseCase addTodoUseCase =
       AddTodoUseCase(hiveRepository: hiveRepository);
 
+  GetTodoUseCase getTodoUseCase =
+      GetTodoUseCase(hiveRepository: hiveRepository);
+
   /* End Initialize UseCase */
 
   /* Start Initialize ViewModel */
