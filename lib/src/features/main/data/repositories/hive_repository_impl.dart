@@ -15,7 +15,7 @@ class HiveRepositoryImpl extends HiveRepository {
   Future<void> addTodo(Todo todo) async {
     todo = _updateTodoKey(todo);
 
-    await _hiveClient.addTodos(TodoMapper.entityToModel(todo));
+    await _hiveClient.addTodos(todo.toModel());
   }
 
   Todo _updateTodoKey(Todo todo) {
@@ -27,5 +27,10 @@ class HiveRepositoryImpl extends HiveRepository {
     }
 
     return todo.copyWith(key: maxKey + 1);
+  }
+
+  @override
+  List<Todo> getRegisteredTodos() {
+    return _hiveClient.getTodos().map((e) => e.toEntity()).toList();
   }
 }
