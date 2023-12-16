@@ -12,3 +12,11 @@ class AddTodoUseCase {
     await _hiveRepository.addNonStatusTodos(todo);
   }
 }
+
+class GetTodoUseCase {
+  final HiveRepository _hiveRepository;
+
+  const GetTodoUseCase({
+    required HiveRepository hiveRepository,
+  }) : _hiveRepository = hiveRepository;
+}
