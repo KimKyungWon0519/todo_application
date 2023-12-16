@@ -13,14 +13,14 @@ class HiveRepositoryImpl extends HiveRepository {
   }) : _hiveClient = hiveClient;
 
   @override
-  Future<void> addNonStateTodos(Todo todo) async {
+  Future<void> addNonStatusTodos(Todo todo) async {
     todo = _updateTodoKey(todo);
 
-    await _hiveClient.addNonStateTodos(todo.toModel());
+    await _hiveClient.addNonStatusTodos(todo.toModel());
   }
 
   Todo _updateTodoKey(Todo todo) {
-    List<TodoModel> todos = _hiveClient.getNonStateTodos();
+    List<TodoModel> todos = _hiveClient.getNonStatusTodos();
     int maxKey = -1;
 
     for (TodoModel todo in todos) {
@@ -31,10 +31,10 @@ class HiveRepositoryImpl extends HiveRepository {
   }
 
   @override
-  List<Todo> getNonStateTodos() {
+  List<Todo> getNonStatusTodos() {
     return _hiveClient
-        .getNonStateTodos()
-        .map((e) => e.toEntity(TodoStatus.nonState))
+        .getNonStatusTodos()
+        .map((e) => e.toEntity(TodoStatus.none))
         .toList();
   }
 }
