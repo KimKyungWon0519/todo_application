@@ -9,12 +9,12 @@ class HiveClient {
     required Box<List<TodoModel>> box,
   }) : _box = box;
 
-  Future<void> addTodos(TodoModel todo) async {
-    List<TodoModel> todos = getTodos();
+  Future<void> addNonStateTodos(TodoModel todo) async {
+    List<TodoModel> todos = getNonStateTodos();
     todos.add(todo);
 
-    _box.put(HiveKeys.registered, todos);
+    _box.put(HiveKeys.nonState, todos);
   }
 
-  List<TodoModel> getTodos() => _box.get(HiveKeys.registered) ?? [];
+  List<TodoModel> getNonStateTodos() => _box.get(HiveKeys.nonState) ?? [];
 }
