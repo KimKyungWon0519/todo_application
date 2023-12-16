@@ -3,6 +3,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:todo_application/src/features/main/data/data_sources/hive_client.dart';
 import 'package:todo_application/src/features/main/data/models/todo_model.dart';
 import 'package:todo_application/src/features/main/data/repositories/hive_repository_impl.dart';
+import 'package:todo_application/src/features/main/domain/entities/todo.dart';
 import 'package:todo_application/src/features/main/domain/repositories/hive_repository.dart';
 import 'package:todo_application/src/features/main/domain/usecases/hive_usecases.dart';
 import 'package:todo_application/src/features/main/presentation/presenter/main_viewmodel.dart';
@@ -36,10 +37,11 @@ Future initDI() async {
 
   /* Start Initialize ViewModel */
 
-  mainProvider = Provider<MainViewModel>((ref) => MainViewModel(
-        addTodoUseCase: addTodoUseCase,
-        getTodoUseCase: getTodoUseCase,
-      ));
+  mainProvider =
+      StateNotifierProvider<MainViewModel, List<Todo>>((ref) => MainViewModel(
+            addTodoUseCase: addTodoUseCase,
+            getTodoUseCase: getTodoUseCase,
+          ));
 
   /* End Initialize ViewModel */
 }

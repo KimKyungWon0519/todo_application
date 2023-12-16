@@ -20,7 +20,7 @@ class AddTodoFAB extends ConsumerWidget {
       builder: (context) => const AddDialog(),
     ).then((value) {
       if (value != null) {
-        ref.read(mainProvider).addTodo(value);
+        ref.read(mainProvider.notifier).addTodo(value);
       }
     });
   }
