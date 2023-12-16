@@ -10,7 +10,7 @@ import 'package:todo_application/src/features/main/presentation/presenter/provid
 
 Future initDI() async {
   Hive.registerAdapter(TodoModelAdapter());
-  Box<List<TodoModel>> box = await Hive.openBox('todos');
+  Box<List<TodoModel>> box = await Hive.openBox<List<TodoModel>>('todos');
 
   /* Start Initialize Data Source */
 
