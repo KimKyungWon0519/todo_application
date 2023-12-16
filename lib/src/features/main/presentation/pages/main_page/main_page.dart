@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:todo_application/src/features/main/domain/entities/todo_status.dart';
 import 'package:todo_application/src/features/main/presentation/pages/main_page/local_widgets/add_todo_fab.dart';
 import 'package:todo_application/src/features/main/presentation/pages/main_page/local_widgets/goal_status.dart';
-import 'package:todo_application/src/features/main/presentation/pages/main_page/local_widgets/todo_tile.dart';
+import 'package:todo_application/src/features/main/presentation/pages/main_page/local_widgets/todo_listview.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({super.key});
@@ -13,21 +12,16 @@ class MainPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('ToDo'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(10),
+      body: const Padding(
+        padding: EdgeInsets.all(10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const AchievedTodo(),
-            const NotAchievedTodo(),
-            const Divider(),
+            AchievedTodo(),
+            NotAchievedTodo(),
+            Divider(),
             Expanded(
-              child: ListView.builder(
-                itemBuilder: (context, index) {
-                  return TodoTile(todoStatus: TodoStatus.values[index]);
-                },
-                itemCount: TodoStatus.values.length,
-              ),
+              child: TodoListView(),
             ),
           ],
         ),
