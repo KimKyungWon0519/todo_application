@@ -19,4 +19,6 @@ class GetTodoUseCase {
   const GetTodoUseCase({
     required HiveRepository hiveRepository,
   }) : _hiveRepository = hiveRepository;
+
+  List<Todo> getNonStatusTodo() => _hiveRepository.getNonStatusTodos();
 }
