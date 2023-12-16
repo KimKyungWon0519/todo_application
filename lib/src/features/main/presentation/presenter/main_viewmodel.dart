@@ -13,7 +13,9 @@ class MainViewModel extends StateNotifier<List<Todo>> {
     required GetTodoUseCase getTodoUseCase,
   })  : _addTodoUseCase = addTodoUseCase,
         _getTodoUseCase = getTodoUseCase,
-        super([]);
+        super([]) {
+    _updateTodos();
+  }
 
   Future<void> addTodo(String title) async {
     Todo todo = Todo(
