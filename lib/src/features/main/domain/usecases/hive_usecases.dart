@@ -9,7 +9,7 @@ class AddTodoUseCase {
   }) : _hiveRepository = hiveRepository;
 
   Future<void> addTodo(Todo todo) async {
-    await _hiveRepository.addNonStatusTodos(todo);
+    await _hiveRepository.addNonStatusTodo(todo);
   }
 }
 

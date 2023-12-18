@@ -9,10 +9,10 @@ class HiveClient {
     required Box<List> box,
   }) : _box = box;
 
-  Future<void> addNonStatusTodos(TodoModel todo) =>
+  Future<void> addNonStatusTodo(TodoModel todo) =>
       _addTodos(TodoHiveKeys.none, todo);
 
-  Future<void> addAchievedStatusTodos(TodoModel todo) =>
+  Future<void> addAchievedStatusTodo(TodoModel todo) =>
       _addTodos(TodoHiveKeys.achieved, todo);
 
   List<TodoModel> getNonStatusTodos() => _getTodos(TodoHiveKeys.none);

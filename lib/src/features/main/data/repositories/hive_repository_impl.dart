@@ -13,10 +13,10 @@ class HiveRepositoryImpl extends HiveRepository {
   }) : _hiveClient = hiveClient;
 
   @override
-  Future<void> addNonStatusTodos(Todo todo) async {
+  Future<void> addNonStatusTodo(Todo todo) async {
     todo = _updateTodoKey(todo);
 
-    await _hiveClient.addNonStatusTodos(todo.toModel());
+    await _hiveClient.addNonStatusTodo(todo.toModel());
   }
 
   Todo _updateTodoKey(Todo todo) {
@@ -40,6 +40,6 @@ class HiveRepositoryImpl extends HiveRepository {
 
   @override
   Future<void> addAchievedStatusTodo(Todo todo) async {
-    await _hiveClient.addAchievedStatusTodos(todo.toModel());
+    await _hiveClient.addAchievedStatusTodo(todo.toModel());
   }
 }
