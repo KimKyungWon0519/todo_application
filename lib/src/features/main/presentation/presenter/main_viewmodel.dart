@@ -17,8 +17,7 @@ class MainViewModel extends StateNotifier<List<Todo>> {
         _getTodoUseCase = getTodoUseCase,
         _removeTodoUseCase = removeTodoUseCase,
         super([]) {
-    _deleteAchievedTodoAfter7Days();
-    _updateTodos();
+    _initializeTodos();
   }
 
   Future<void> addTodo(String title) async {
@@ -55,21 +54,52 @@ class MainViewModel extends StateNotifier<List<Todo>> {
     return 7 - dateTime.difference(DateTime.now()).inDays.abs();
   }
 
-  void _deleteAchievedTodoAfter7Days() {
+  void _initializeTodos() async {
+    await _addNotAchievedTodo();
+    await _deleteAchievedTodoAfter7Days();
+
+    _updateTodos();
+  }
+
+  Future<void> _deleteAchievedTodoAfter7Days() async {
     List<Todo> todos = _getTodoUseCase.getAchievedStatusTodos();
 
     for (Todo todo in todos) {
       if (getRemainingDateTime(todo.registeredDateTime) == 0) {
-        _removeTodoUseCase.removeAchievedStatusTodo(todo);
+        await _removeTodoUseCase.removeAchievedStatusTodo(todo);
+      }
+    }
+  }
+
+  Future<void> _addNotAchievedTodo() async {
+    List<Todo> todos = _getTodoUseCase.getNonStatusTodo();
+    List<Todo> notAchievedTodos = _getTodoUseCase.getNotAchievedStatusTodos();
+
+    for (Todo todo in todos) {
+      DateTime dateTime = DateTime.parse(todo.registeredDateTime);
+
+      if (!notAchievedTodos.contains(todo) &&
+          dateTime.difference(DateTime.now()).inDays.abs() > 0) {
+        await _addTodoUseCase
+            .addNotAchievedStatusTodo(todo)
+            .then((value) async {
+          await _removeTodoUseCase.removeNonStatusTodo(todo);
+        });
       }
     }
   }
 
   void _updateTodos() {
-    List<Todo> nonStatusTodo = _getTodoUseCase.getNonStatusTodo();
-    List<Todo> achieveStatusTodo = _getTodoUseCase.getAchievedStatusTodos();
+    List<Todo> nonStatusTodos = _getTodoUseCase.getNonStatusTodo();
+    List<Todo> achievedStatusTodos = _getTodoUseCase.getAchievedStatusTodos();
+    List<Todo> notAchievedStatusTodos =
+        _getTodoUseCase.getNotAchievedStatusTodos();
 
-    List<Todo> todos = [...nonStatusTodo, ...achieveStatusTodo];
+    List<Todo> todos = [
+      ...nonStatusTodos,
+      ...notAchievedStatusTodos,
+      ...achievedStatusTodos,
+    ];
 
     state = todos;
   }

@@ -15,9 +15,15 @@ class HiveClient {
   Future<void> addAchievedStatusTodo(TodoModel todo) =>
       _addTodos(TodoHiveKeys.achieved, todo);
 
+  Future<void> addNotAchievedStatusTodo(TodoModel todo) =>
+      _addTodos(TodoHiveKeys.notAchieved, todo);
+
   List<TodoModel> getNonStatusTodos() => _getTodos(TodoHiveKeys.none);
 
   List<TodoModel> getAchievedStatusTodos() => _getTodos(TodoHiveKeys.achieved);
+
+  List<TodoModel> getNotAchievedStatusTodos() =>
+      _getTodos(TodoHiveKeys.notAchieved);
 
   Future<void> removeNonStatusTodo(TodoModel todoModel) =>
       _removeTodos(TodoHiveKeys.none, todoModel);
