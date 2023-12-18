@@ -37,7 +37,10 @@ class MainViewModel extends StateNotifier<List<Todo>> {
   }
 
   void _updateTodos() {
-    List<Todo> todos = _getTodoUseCase.getNonStatusTodo();
+    List<Todo> nonStatusTodo = _getTodoUseCase.getNonStatusTodo();
+    List<Todo> achieveStatusTodo = _getTodoUseCase.getAchievedStatusTodos();
+
+    List<Todo> todos = [...nonStatusTodo, ...achieveStatusTodo];
 
     state = todos;
   }
