@@ -25,7 +25,9 @@ class MainViewModel extends StateNotifier<List<Todo>> {
       status: TodoStatus.none,
     );
 
-    await _addTodoUseCase.addTodo(todo).then((value) => _updateTodos());
+    await _addTodoUseCase
+        .addNonStatusTodo(todo)
+        .then((value) => _updateTodos());
   }
 
   void _updateTodos() {
