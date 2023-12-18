@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:todo_application/src/core/contants/todo_hive_keys.dart';
 import 'package:todo_application/src/features/main/data/data_sources/hive_client.dart';
 import 'package:todo_application/src/features/main/data/models/todo_model.dart';
 import 'package:todo_application/src/features/main/data/repositories/hive_repository_impl.dart';
@@ -11,7 +12,7 @@ import 'package:todo_application/src/features/main/presentation/presenter/provid
 
 Future initDI() async {
   Hive.registerAdapter(TodoModelAdapter());
-  Box<List> box = await Hive.openBox<List>('todos');
+  Box<List> box = await Hive.openBox<List>(TodoHiveKeys.boxName);
 
   /* Start Initialize Data Source */
 
