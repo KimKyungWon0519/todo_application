@@ -30,6 +30,12 @@ class MainViewModel extends StateNotifier<List<Todo>> {
         .then((value) => _updateTodos());
   }
 
+  Future<void> achieveTodo(Todo todo) async {
+    await _addTodoUseCase
+        .addAchievedStatusTodo(todo)
+        .then((value) => _updateTodos());
+  }
+
   void _updateTodos() {
     List<Todo> todos = _getTodoUseCase.getNonStatusTodo();
 
