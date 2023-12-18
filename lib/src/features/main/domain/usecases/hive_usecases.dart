@@ -23,4 +23,7 @@ class GetTodoUseCase {
   }) : _hiveRepository = hiveRepository;
 
   List<Todo> getNonStatusTodo() => _hiveRepository.getNonStatusTodos();
+
+  List<Todo> getAchievedStatusTodos() =>
+      _hiveRepository.getAchievedStatusTodos();
 }

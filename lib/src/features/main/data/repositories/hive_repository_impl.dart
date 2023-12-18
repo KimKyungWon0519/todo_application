@@ -42,4 +42,12 @@ class HiveRepositoryImpl extends HiveRepository {
   Future<void> addAchievedStatusTodo(Todo todo) async {
     await _hiveClient.addAchievedStatusTodo(todo.toModel());
   }
+
+  @override
+  List<Todo> getAchievedStatusTodos() {
+    return _hiveClient
+        .getAchievedStatusTodos()
+        .map((e) => e.toEntity(TodoStatus.achieved))
+        .toList();
+  }
 }
