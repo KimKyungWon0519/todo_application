@@ -13,6 +13,9 @@ class AddTodoUseCase {
 
   Future<void> addAchievedStatusTodo(Todo todo) =>
       _hiveRepository.addAchievedStatusTodo(todo);
+
+  Future<void> addNotAchievedStatusTodo(Todo todo) =>
+      _hiveRepository.addNotAchievedStatusTodo(todo);
 }
 
 class GetTodoUseCase {
@@ -26,6 +29,9 @@ class GetTodoUseCase {
 
   List<Todo> getAchievedStatusTodos() =>
       _hiveRepository.getAchievedStatusTodos();
+
+  List<Todo> getNotAchievedStatusTodos() =>
+      _hiveRepository.getNotAchievedStatusTodos();
 }
 
 class RemoveTodoUseCase {

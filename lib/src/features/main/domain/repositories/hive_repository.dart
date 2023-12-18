@@ -8,4 +8,7 @@ abstract class HiveRepository {
   Future<void> addAchievedStatusTodo(Todo todo);
   List<Todo> getAchievedStatusTodos();
   Future<void> removeAchievedStatusTodo(Todo todo);
+
+  Future<void> addNotAchievedStatusTodo(Todo todo);
+  List<Todo> getNotAchievedStatusTodos();
 }
