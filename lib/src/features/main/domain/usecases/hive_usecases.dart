@@ -37,4 +37,7 @@ class RemoveTodoUseCase {
 
   Future<void> removeNonStatusTodo(Todo todo) =>
       _hiveRepository.removeNonStatusTodo(todo);
+
+  Future<void> removeAchievedStatusTodo(Todo todo) =>
+      _hiveRepository.removeAchievedStatusTodo(todo);
 }

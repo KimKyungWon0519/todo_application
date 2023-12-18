@@ -34,11 +34,19 @@ class MainViewModel extends StateNotifier<List<Todo>> {
   }
 
   Future<void> achieveTodo(Todo todo) async {
-    await _removeTodoUseCase.removeNonStatusTodo(todo);
+    await _addTodoUseCase.addAchievedStatusTodo(todo).then((value) async {
+      await _removeTodoUseCase.removeNonStatusTodo(todo);
 
-    await _addTodoUseCase
-        .addAchievedStatusTodo(todo)
-        .then((value) => _updateTodos());
+      _updateTodos();
+    });
+  }
+
+  Future<void> unachieveTodo(Todo todo) async {
+    await _addTodoUseCase.addNonStatusTodo(todo).then((value) async {
+      await _removeTodoUseCase.removeAchievedStatusTodo(todo);
+
+      _updateTodos();
+    });
   }
 
   void _updateTodos() {

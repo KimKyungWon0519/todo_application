@@ -55,4 +55,9 @@ class HiveRepositoryImpl extends HiveRepository {
   Future<void> removeNonStatusTodo(Todo todo) async {
     await _hiveClient.removeNonStatusTodo(todo.toModel());
   }
+
+  @override
+  Future<void> removeAchievedStatusTodo(Todo todo) async {
+    await _hiveClient.removeAchievedStatusTodo(todo.toModel());
+  }
 }

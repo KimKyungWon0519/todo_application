@@ -53,6 +53,8 @@ class TodoTile extends ConsumerWidget {
   void _onChanged(bool value, WidgetRef ref) {
     if (value) {
       ref.read(mainProvider.notifier).achieveTodo(todo);
-    } else {}
+    } else {
+      ref.read(mainProvider.notifier).unachieveTodo(todo);
+    }
   }
 }
