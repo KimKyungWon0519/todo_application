@@ -11,6 +11,9 @@ class AddTodoUseCase {
   Future<void> addTodo(Todo todo) async {
     await _hiveRepository.addNonStatusTodo(todo);
   }
+
+  Future<void> addAchievedStatusTodo(Todo todo) =>
+      _hiveRepository.addAchievedStatusTodo(todo);
 }
 
 class GetTodoUseCase {
