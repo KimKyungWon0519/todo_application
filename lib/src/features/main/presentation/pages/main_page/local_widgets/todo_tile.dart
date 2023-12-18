@@ -57,23 +57,19 @@ class TodoTile extends ConsumerWidget {
   }
 }
 
-class _AchievedSubtitle extends StatelessWidget {
+class _AchievedSubtitle extends ConsumerWidget {
   final String registeredDateTime;
 
   const _AchievedSubtitle(this.registeredDateTime);
 
   @override
-  Widget build(BuildContext context) {
-    String remainingDate = createRemainingDate();
+  Widget build(BuildContext context, WidgetRef ref) {
+    String remainingDate = ref
+        .read(mainProvider.notifier)
+        .getRemainingDateTime(registeredDateTime)
+        .toString();
 
     return Text('$remainingDate일 후 자동으로 삭제됩니다.');
-  }
-
-  String createRemainingDate() {
-    DateTime dateTime = DateTime.parse(registeredDateTime);
-    int remainingDate = 7 - dateTime.difference(DateTime.now()).inDays.abs();
-
-    return remainingDate.toString();
   }
 }
 
