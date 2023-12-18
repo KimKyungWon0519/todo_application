@@ -50,4 +50,9 @@ class HiveRepositoryImpl extends HiveRepository {
         .map((e) => e.toEntity(TodoStatus.achieved))
         .toList();
   }
+
+  @override
+  Future<void> removeNonStatusTodo(Todo todo) async {
+    await _hiveClient.removeNonStatusTodo(todo.toModel());
+  }
 }
