@@ -13,9 +13,9 @@ class HiveClient {
     List<TodoModel> todos = getNonStatusTodos();
     todos.add(todo);
 
-    _box.put(HiveKeys.none, todos);
+    _box.put(TodoHiveKeys.none, todos);
   }
 
   List<TodoModel> getNonStatusTodos() =>
-      _box.get(HiveKeys.none)?.map((e) => e as TodoModel).toList() ?? [];
+      _box.get(TodoHiveKeys.none)?.map((e) => e as TodoModel).toList() ?? [];
 }
