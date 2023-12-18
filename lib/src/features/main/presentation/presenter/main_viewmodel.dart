@@ -17,6 +17,7 @@ class MainViewModel extends StateNotifier<List<Todo>> {
         _getTodoUseCase = getTodoUseCase,
         _removeTodoUseCase = removeTodoUseCase,
         super([]) {
+    _deleteAchievedTodoAfter7Days();
     _updateTodos();
   }
 
@@ -47,6 +48,21 @@ class MainViewModel extends StateNotifier<List<Todo>> {
 
       _updateTodos();
     });
+  }
+
+  int getRemainingDateTime(String registeredDateTime) {
+    DateTime dateTime = DateTime.parse(registeredDateTime);
+    return 7 - dateTime.difference(DateTime.now()).inDays.abs();
+  }
+
+  void _deleteAchievedTodoAfter7Days() {
+    List<Todo> todos = _getTodoUseCase.getAchievedStatusTodos();
+
+    for (Todo todo in todos) {
+      if (getRemainingDateTime(todo.registeredDateTime) == 0) {
+        _removeTodoUseCase.removeAchievedStatusTodo(todo);
+      }
+    }
   }
 
   void _updateTodos() {
