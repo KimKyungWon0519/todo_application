@@ -19,6 +19,13 @@ class HiveClient {
 
   List<TodoModel> getAchievedStatusTodos() => _getTodos(TodoHiveKeys.achieved);
 
+  Future<void> removeNonStatusTodo(TodoModel todoModel) async {
+    List<TodoModel> todos = _getTodos(TodoHiveKeys.none);
+    todos.remove(todoModel);
+
+    _box.put(TodoHiveKeys.none, todos);
+  }
+
   Future<void> _addTodos(String key, TodoModel value) async {
     List<TodoModel> todos = _getTodos(key);
     todos.add(value);

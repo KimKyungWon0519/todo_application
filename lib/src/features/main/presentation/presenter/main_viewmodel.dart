@@ -7,12 +7,15 @@ import 'package:todo_application/src/features/main/domain/usecases/hive_usecases
 class MainViewModel extends StateNotifier<List<Todo>> {
   final AddTodoUseCase _addTodoUseCase;
   final GetTodoUseCase _getTodoUseCase;
+  final RemoveTodoUseCase _removeTodoUseCase;
 
   MainViewModel({
     required AddTodoUseCase addTodoUseCase,
     required GetTodoUseCase getTodoUseCase,
+    required RemoveTodoUseCase removeTodoUseCase,
   })  : _addTodoUseCase = addTodoUseCase,
         _getTodoUseCase = getTodoUseCase,
+        _removeTodoUseCase = removeTodoUseCase,
         super([]) {
     _updateTodos();
   }
@@ -31,6 +34,8 @@ class MainViewModel extends StateNotifier<List<Todo>> {
   }
 
   Future<void> achieveTodo(Todo todo) async {
+    await _removeTodoUseCase.removeNonStatusTodo(todo);
+
     await _addTodoUseCase
         .addAchievedStatusTodo(todo)
         .then((value) => _updateTodos());

@@ -34,6 +34,9 @@ Future initDI() async {
   GetTodoUseCase getTodoUseCase =
       GetTodoUseCase(hiveRepository: hiveRepository);
 
+  RemoveTodoUseCase removeTodoUseCase =
+      RemoveTodoUseCase(hiveRepository: hiveRepository);
+
   /* End Initialize UseCase */
 
   /* Start Initialize ViewModel */
@@ -42,6 +45,7 @@ Future initDI() async {
       StateNotifierProvider<MainViewModel, List<Todo>>((ref) => MainViewModel(
             addTodoUseCase: addTodoUseCase,
             getTodoUseCase: getTodoUseCase,
+            removeTodoUseCase: removeTodoUseCase,
           ));
 
   /* End Initialize ViewModel */

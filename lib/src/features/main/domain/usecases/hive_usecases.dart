@@ -27,3 +27,14 @@ class GetTodoUseCase {
   List<Todo> getAchievedStatusTodos() =>
       _hiveRepository.getAchievedStatusTodos();
 }
+
+class RemoveTodoUseCase {
+  final HiveRepository _hiveRepository;
+
+  const RemoveTodoUseCase({
+    required HiveRepository hiveRepository,
+  }) : _hiveRepository = hiveRepository;
+
+  Future<void> removeNonStatusTodo(Todo todo) =>
+      _hiveRepository.removeNonStatusTodo(todo);
+}
