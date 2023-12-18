@@ -1,5 +1,5 @@
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:todo_application/src/core/contants/hive_keys.dart';
+import 'package:todo_application/src/core/contants/todo_hive_keys.dart';
 import 'package:todo_application/src/features/main/data/models/todo_model.dart';
 
 class HiveClient {
