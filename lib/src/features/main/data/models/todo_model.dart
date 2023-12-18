@@ -16,4 +16,10 @@ class TodoModel {
     required this.title,
     required this.registeredDateTime,
   });
+
+  @override
+  bool operator ==(covariant TodoModel other) => key == other.key;
+
+  @override
+  int get hashCode => key.hashCode;
 }
