@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:todo_application/src/features/main/domain/entities/todo.dart';
 import 'package:todo_application/src/features/main/domain/entities/todo_status.dart';
+import 'package:todo_application/src/features/main/presentation/presenter/providers.dart';
 
-class TodoTile extends StatelessWidget {
+class TodoTile extends ConsumerWidget {
   final Todo todo;
 
   const TodoTile({
@@ -11,10 +13,10 @@ class TodoTile extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return CheckboxListTile(
       value: todo.status == TodoStatus.achieved,
-      onChanged: (value) {},
+      onChanged: (value) => _onChanged(value ?? false, ref),
       title: Text(
         todo.title,
         overflow: TextOverflow.ellipsis,
@@ -46,5 +48,11 @@ class TodoTile extends StatelessWidget {
       default:
         return Colors.black;
     }
+  }
+
+  void _onChanged(bool value, WidgetRef ref) {
+    if (value) {
+      ref.read(mainProvider.notifier).achieveTodo(todo);
+    } else {}
   }
 }
