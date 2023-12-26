@@ -16,20 +16,20 @@ class TodoTile extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return CheckboxListTile(
-      value: todo.status == TodoStatus.achieved,
+      value: todo.achievedDateTime.isNotEmpty,
       onChanged: (value) => _onChanged(value ?? false, ref),
       title: Text(
         todo.title,
         overflow: TextOverflow.ellipsis,
         maxLines: 1,
         style: TextStyle(
-          decoration: todo.status == TodoStatus.achieved
+          decoration: todo.achievedDateTime.isNotEmpty
               ? TextDecoration.lineThrough
               : null,
-          color: _getColor(),
+          color: _getColor(ref),
         ),
       ),
-      subtitle: switch (todo.status) {
+      subtitle: switch (ref.read(mainProvider.notifier).getTodoStatus(todo)) {
         TodoStatus.achieved => _AchievedSubtitle(todo.registeredDateTime),
         TodoStatus.notAchieved => const _NotAchievedSubtitle(),
         _ => null
@@ -37,8 +37,8 @@ class TodoTile extends ConsumerWidget {
     );
   }
 
-  Color _getColor() {
-    switch (todo.status) {
+  Color _getColor(WidgetRef ref) {
+    switch (ref.read(mainProvider.notifier).getTodoStatus(todo)) {
       case TodoStatus.achieved:
         return Colors.grey;
       case TodoStatus.notAchieved:

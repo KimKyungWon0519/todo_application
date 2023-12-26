@@ -9,42 +9,25 @@ class HiveClient {
     required Box<List> box,
   }) : _box = box;
 
-  Future<void> addNonStatusTodo(TodoModel todo) =>
-      _addTodos(TodoHiveKeys.none, todo);
-
-  Future<void> addAchievedStatusTodo(TodoModel todo) =>
-      _addTodos(TodoHiveKeys.achieved, todo);
-
-  Future<void> addNotAchievedStatusTodo(TodoModel todo) =>
-      _addTodos(TodoHiveKeys.notAchieved, todo);
-
-  List<TodoModel> getNonStatusTodos() => _getTodos(TodoHiveKeys.none);
-
-  List<TodoModel> getAchievedStatusTodos() => _getTodos(TodoHiveKeys.achieved);
-
-  List<TodoModel> getNotAchievedStatusTodos() =>
-      _getTodos(TodoHiveKeys.notAchieved);
-
-  Future<void> removeNonStatusTodo(TodoModel todoModel) =>
-      _removeTodos(TodoHiveKeys.none, todoModel);
-
-  Future<void> removeAchievedStatusTodo(TodoModel todoModel) =>
-      _removeTodos(TodoHiveKeys.achieved, todoModel);
-
-  Future<void> _addTodos(String key, TodoModel value) async {
-    List<TodoModel> todos = _getTodos(key);
+  Future<void> addTodos(TodoModel value) async {
+    List<TodoModel> todos = getTodos();
     todos.add(value);
 
-    await _box.put(key, todos);
+    await _box.put(TodoHiveKeys.registered, todos);
   }
 
-  List<TodoModel> _getTodos(String key) =>
-      _box.get(key)?.map((e) => e as TodoModel).toList() ?? [];
+  List<TodoModel> getTodos() =>
+      _box.get(TodoHiveKeys.registered)?.map((e) => e as TodoModel).toList() ??
+      [];
 
-  Future<void> _removeTodos(String key, TodoModel value) async {
-    List<TodoModel> todos = _getTodos(key);
+  Future<void> removeTodos(TodoModel value) async {
+    List<TodoModel> todos = getTodos();
     todos.remove(value);
 
-    await _box.put(key, todos);
+    await _box.put(TodoHiveKeys.registered, todos);
+  }
+
+  Future<void> changeTodos(List<TodoModel> values) async {
+    await _box.put(TodoHiveKeys.registered, values);
   }
 }

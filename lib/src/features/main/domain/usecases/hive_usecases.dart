@@ -8,14 +8,7 @@ class AddTodoUseCase {
     required HiveRepository hiveRepository,
   }) : _hiveRepository = hiveRepository;
 
-  Future<void> addNonStatusTodo(Todo todo) =>
-      _hiveRepository.addNonStatusTodo(todo);
-
-  Future<void> addAchievedStatusTodo(Todo todo) =>
-      _hiveRepository.addAchievedStatusTodo(todo);
-
-  Future<void> addNotAchievedStatusTodo(Todo todo) =>
-      _hiveRepository.addNotAchievedStatusTodo(todo);
+  Future<void> addTodo(Todo todo) => _hiveRepository.addTodo(todo);
 }
 
 class GetTodoUseCase {
@@ -25,13 +18,9 @@ class GetTodoUseCase {
     required HiveRepository hiveRepository,
   }) : _hiveRepository = hiveRepository;
 
-  List<Todo> getNonStatusTodo() => _hiveRepository.getNonStatusTodos();
-
-  List<Todo> getAchievedStatusTodos() =>
-      _hiveRepository.getAchievedStatusTodos();
-
-  List<Todo> getNotAchievedStatusTodos() =>
-      _hiveRepository.getNotAchievedStatusTodos();
+  List<Todo> getTodos() => _hiveRepository.getTodos();
+  List<Todo> getAchievedTodos() => _hiveRepository.getAchievedTodos();
+  List<Todo> getNotAchievedTodos() => _hiveRepository.getNotAchievedTodos();
 }
 
 class RemoveTodoUseCase {
@@ -41,9 +30,15 @@ class RemoveTodoUseCase {
     required HiveRepository hiveRepository,
   }) : _hiveRepository = hiveRepository;
 
-  Future<void> removeNonStatusTodo(Todo todo) =>
-      _hiveRepository.removeNonStatusTodo(todo);
+  Future<void> removeTodo(Todo todo) => _hiveRepository.removeTodo(todo);
+}
 
-  Future<void> removeAchievedStatusTodo(Todo todo) =>
-      _hiveRepository.removeAchievedStatusTodo(todo);
+class ChangeTodoUseCase {
+  final HiveRepository _hiveRepository;
+
+  const ChangeTodoUseCase({
+    required HiveRepository hiveRepository,
+  }) : _hiveRepository = hiveRepository;
+
+  Future<void> changeTodo(Todo todo) => _hiveRepository.changeTodo(todo);
 }
