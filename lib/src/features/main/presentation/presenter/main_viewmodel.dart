@@ -8,14 +8,17 @@ class MainViewModel extends StateNotifier<List<Todo>> {
   final AddTodoUseCase _addTodoUseCase;
   final GetTodoUseCase _getTodoUseCase;
   final RemoveTodoUseCase _removeTodoUseCase;
+  final ChangeTodoUseCase _changeTodoUseCase;
 
   MainViewModel({
     required AddTodoUseCase addTodoUseCase,
     required GetTodoUseCase getTodoUseCase,
     required RemoveTodoUseCase removeTodoUseCase,
+    required ChangeTodoUseCase changeTodoUseCase,
   })  : _addTodoUseCase = addTodoUseCase,
         _getTodoUseCase = getTodoUseCase,
         _removeTodoUseCase = removeTodoUseCase,
+        _changeTodoUseCase = changeTodoUseCase,
         super([]) {
     _initializeTodos();
   }
@@ -25,28 +28,39 @@ class MainViewModel extends StateNotifier<List<Todo>> {
       key: -1,
       title: title,
       registeredDateTime: DateFormat('yyyy-MM-dd').format(DateTime.now()),
-      status: TodoStatus.none,
     );
 
-    await _addTodoUseCase
-        .addNonStatusTodo(todo)
-        .then((value) => _updateTodos());
+    await _addTodoUseCase.addTodo(todo).then((value) => _updateTodos());
   }
 
   Future<void> achieveTodo(Todo todo) async {
-    await _addTodoUseCase.addAchievedStatusTodo(todo).then((value) async {
-      await _removeTodoUseCase.removeNonStatusTodo(todo);
+    await _changeTodoUseCase
+        .changeTodo(
+          todo.copyWith(
+            achievedDateTime: DateFormat('yyyy-MM-dd').format(DateTime.now()),
+          ),
+        )
+        .then((value) => _updateTodos());
+  }
 
-      _updateTodos();
-    });
+  TodoStatus getTodoStatus(Todo todo) {
+    if (todo.achievedDateTime.isNotEmpty) {
+      return TodoStatus.achieved;
+    }
+
+    DateTime dateTime = DateTime.parse(todo.registeredDateTime);
+
+    if (dateTime.difference(DateTime.now()).inDays != 0) {
+      return TodoStatus.notAchieved;
+    }
+
+    return TodoStatus.none;
   }
 
   Future<void> unachieveTodo(Todo todo) async {
-    await _addTodoUseCase.addNonStatusTodo(todo).then((value) async {
-      await _removeTodoUseCase.removeAchievedStatusTodo(todo);
-
-      _updateTodos();
-    });
+    await _changeTodoUseCase
+        .changeTodo(todo.copyWith(achievedDateTime: ''))
+        .then((value) => _updateTodos());
   }
 
   int getRemainingDateTime(String registeredDateTime) {
@@ -55,52 +69,22 @@ class MainViewModel extends StateNotifier<List<Todo>> {
   }
 
   void _initializeTodos() async {
-    await _addNotAchievedTodo();
     await _deleteAchievedTodoAfter7Days();
 
     _updateTodos();
   }
 
   Future<void> _deleteAchievedTodoAfter7Days() async {
-    List<Todo> todos = _getTodoUseCase.getAchievedStatusTodos();
+    List<Todo> todos = _getTodoUseCase.getAchievedTodos();
 
     for (Todo todo in todos) {
-      if (getRemainingDateTime(todo.registeredDateTime) == 0) {
-        await _removeTodoUseCase.removeAchievedStatusTodo(todo);
-      }
-    }
-  }
-
-  Future<void> _addNotAchievedTodo() async {
-    List<Todo> todos = _getTodoUseCase.getNonStatusTodo();
-    List<Todo> notAchievedTodos = _getTodoUseCase.getNotAchievedStatusTodos();
-
-    for (Todo todo in todos) {
-      DateTime dateTime = DateTime.parse(todo.registeredDateTime);
-
-      if (!notAchievedTodos.contains(todo) &&
-          dateTime.difference(DateTime.now()).inDays.abs() > 0) {
-        await _addTodoUseCase
-            .addNotAchievedStatusTodo(todo)
-            .then((value) async {
-          await _removeTodoUseCase.removeNonStatusTodo(todo);
-        });
+      if (getRemainingDateTime(todo.achievedDateTime) == 0) {
+        await _removeTodoUseCase.removeTodo(todo);
       }
     }
   }
 
   void _updateTodos() {
-    List<Todo> nonStatusTodos = _getTodoUseCase.getNonStatusTodo();
-    List<Todo> achievedStatusTodos = _getTodoUseCase.getAchievedStatusTodos();
-    List<Todo> notAchievedStatusTodos =
-        _getTodoUseCase.getNotAchievedStatusTodos();
-
-    List<Todo> todos = [
-      ...nonStatusTodos,
-      ...notAchievedStatusTodos,
-      ...achievedStatusTodos,
-    ];
-
-    state = todos;
+    state = _getTodoUseCase.getTodos();
   }
 }

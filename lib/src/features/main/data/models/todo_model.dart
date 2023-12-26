@@ -10,11 +10,14 @@ class TodoModel {
   final String title;
   @HiveField(2)
   final String registeredDateTime;
+  @HiveField(3)
+  final String achievedDateTime;
 
   const TodoModel({
     required this.key,
     required this.title,
     required this.registeredDateTime,
+    required this.achievedDateTime,
   });
 
   @override

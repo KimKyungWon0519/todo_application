@@ -37,6 +37,9 @@ Future initDI() async {
   RemoveTodoUseCase removeTodoUseCase =
       RemoveTodoUseCase(hiveRepository: hiveRepository);
 
+  ChangeTodoUseCase changeTodoUseCase =
+      ChangeTodoUseCase(hiveRepository: hiveRepository);
+
   /* End Initialize UseCase */
 
   /* Start Initialize ViewModel */
@@ -46,6 +49,7 @@ Future initDI() async {
             addTodoUseCase: addTodoUseCase,
             getTodoUseCase: getTodoUseCase,
             removeTodoUseCase: removeTodoUseCase,
+            changeTodoUseCase: changeTodoUseCase,
           ));
 
   /* End Initialize ViewModel */
