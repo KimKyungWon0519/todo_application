@@ -45,14 +45,28 @@ class HiveRepositoryImpl extends HiveRepository {
 
   @override
   List<Todo> getNotAchievedTodos() {
-    return getTodos()
-        .where((element) =>
-            DateTime.parse(element.registeredDateTime)
-                .difference(DateTime.now())
-                .inDays
-                .abs() >
-            0)
-        .toList();
+    return getTodos().where((element) {
+      if (element.achievedDateTime.isNotEmpty) return false;
+
+      return DateTime.parse(element.registeredDateTime)
+              .difference(DateTime.now())
+              .inDays
+              .abs() >
+          0;
+    }).toList();
+  }
+
+  @override
+  List<Todo> getTodayTodo(DateTime date) {
+    return getTodos().where((element) {
+      if (element.achievedDateTime.isNotEmpty) return false;
+
+      return DateTime.parse(element.registeredDateTime)
+              .difference(date)
+              .inDays
+              .abs() ==
+          0;
+    }).toList();
   }
 
   int _createNewKey() {

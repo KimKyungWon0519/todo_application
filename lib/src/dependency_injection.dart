@@ -7,7 +7,8 @@ import 'package:todo_application/src/features/main/data/repositories/hive_reposi
 import 'package:todo_application/src/features/main/domain/entities/todo.dart';
 import 'package:todo_application/src/features/main/domain/repositories/hive_repository.dart';
 import 'package:todo_application/src/features/main/domain/usecases/hive_usecases.dart';
-import 'package:todo_application/src/features/main/presentation/presenter/main_viewmodel.dart';
+import 'package:todo_application/src/features/main/presentation/presenter/main/state.dart';
+import 'package:todo_application/src/features/main/presentation/presenter/main/viewmodel.dart';
 import 'package:todo_application/src/features/main/presentation/presenter/providers.dart';
 
 Future initDI() async {
@@ -45,7 +46,7 @@ Future initDI() async {
   /* Start Initialize ViewModel */
 
   mainProvider =
-      StateNotifierProvider<MainViewModel, List<Todo>>((ref) => MainViewModel(
+      StateNotifierProvider<MainViewModel, TodoState>((ref) => MainViewModel(
             addTodoUseCase: addTodoUseCase,
             getTodoUseCase: getTodoUseCase,
             removeTodoUseCase: removeTodoUseCase,

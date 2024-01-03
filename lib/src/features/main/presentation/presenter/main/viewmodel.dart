@@ -3,8 +3,9 @@ import 'package:intl/intl.dart';
 import 'package:todo_application/src/features/main/domain/entities/todo.dart';
 import 'package:todo_application/src/features/main/domain/entities/todo_status.dart';
 import 'package:todo_application/src/features/main/domain/usecases/hive_usecases.dart';
+import 'package:todo_application/src/features/main/presentation/presenter/main/state.dart';
 
-class MainViewModel extends StateNotifier<List<Todo>> {
+class MainViewModel extends StateNotifier<TodoState> {
   final AddTodoUseCase _addTodoUseCase;
   final GetTodoUseCase _getTodoUseCase;
   final RemoveTodoUseCase _removeTodoUseCase;
@@ -19,7 +20,7 @@ class MainViewModel extends StateNotifier<List<Todo>> {
         _getTodoUseCase = getTodoUseCase,
         _removeTodoUseCase = removeTodoUseCase,
         _changeTodoUseCase = changeTodoUseCase,
-        super([]) {
+        super(TodoState.empty()) {
     _initializeTodos();
   }
 
@@ -68,6 +69,10 @@ class MainViewModel extends StateNotifier<List<Todo>> {
     return 7 - dateTime.difference(DateTime.now()).inDays.abs();
   }
 
+  int getDailyTodoCount() {
+    return _getTodoUseCase.getTodayTodo(DateTime.now()).length;
+  }
+
   void _initializeTodos() async {
     await _deleteAchievedTodoAfter7Days();
 
@@ -85,6 +90,10 @@ class MainViewModel extends StateNotifier<List<Todo>> {
   }
 
   void _updateTodos() {
-    state = _getTodoUseCase.getTodos();
+    state = TodoState(
+      todos: _getTodoUseCase.getTodos(),
+      todayTodoCnt: _getTodoUseCase.getTodayTodo(DateTime.now()).length,
+      notAchievedTodoCnt: _getTodoUseCase.getNotAchievedTodos().length,
+    );
   }
 }
