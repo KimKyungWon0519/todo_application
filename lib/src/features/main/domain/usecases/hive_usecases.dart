@@ -21,6 +21,7 @@ class GetTodoUseCase {
   List<Todo> getTodos() => _hiveRepository.getTodos();
   List<Todo> getAchievedTodos() => _hiveRepository.getAchievedTodos();
   List<Todo> getNotAchievedTodos() => _hiveRepository.getNotAchievedTodos();
+  List<Todo> getTodayTodo(DateTime date) => _hiveRepository.getTodayTodo(date);
 }
 
 class RemoveTodoUseCase {

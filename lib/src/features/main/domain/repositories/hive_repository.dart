@@ -5,6 +5,7 @@ abstract class HiveRepository {
   List<Todo> getTodos();
   List<Todo> getAchievedTodos();
   List<Todo> getNotAchievedTodos();
+  List<Todo> getTodayTodo(DateTime date);
   Future<void> removeTodo(Todo todo);
   Future<void> changeTodo(Todo todo);
 }

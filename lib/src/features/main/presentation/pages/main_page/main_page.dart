@@ -17,7 +17,7 @@ class MainPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            AchievedTodo(),
+            TodayTodo(),
             NotAchievedTodo(),
             Divider(),
             Expanded(
