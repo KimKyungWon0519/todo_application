@@ -31,7 +31,7 @@ class TodoTile extends ConsumerWidget {
       ),
       subtitle: switch (ref.read(mainProvider.notifier).getTodoStatus(todo)) {
         TodoStatus.achieved => _AchievedSubtitle(todo.registeredDateTime),
-        TodoStatus.notAchieved => const _NotAchievedSubtitle(),
+        TodoStatus.notAchieved => _NotAchievedSubtitle(todo.registeredDateTime),
         _ => null
       },
     );
@@ -73,14 +73,21 @@ class _AchievedSubtitle extends ConsumerWidget {
   }
 }
 
-class _NotAchievedSubtitle extends StatelessWidget {
-  const _NotAchievedSubtitle();
+class _NotAchievedSubtitle extends ConsumerWidget {
+  final String registeredDateTime;
+
+  const _NotAchievedSubtitle(this.registeredDateTime);
 
   @override
-  Widget build(BuildContext context) {
-    return const Text(
-      '등록일(2023/01/01)로 부터 10일 지났어요.',
-      style: TextStyle(color: Colors.red),
+  Widget build(BuildContext context, WidgetRef ref) {
+    String elapsedDay = ref
+        .read(mainProvider.notifier)
+        .getElapsedDay(registeredDateTime)
+        .toString();
+
+    return Text(
+      '등록일($registeredDateTime)로 부터 $elapsedDay일 지났어요.',
+      style: const TextStyle(color: Colors.red),
     );
   }
 }

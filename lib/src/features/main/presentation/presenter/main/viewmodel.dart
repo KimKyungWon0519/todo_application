@@ -65,8 +65,13 @@ class MainViewModel extends StateNotifier<TodoState> {
   }
 
   int getRemainingDateTime(String registeredDateTime) {
+    return 7 - getElapsedDay(registeredDateTime);
+  }
+
+  int getElapsedDay(String registeredDateTime) {
     DateTime dateTime = DateTime.parse(registeredDateTime);
-    return 7 - dateTime.difference(DateTime.now()).inDays.abs();
+
+    return dateTime.difference(DateTime.now()).inDays.abs();
   }
 
   int getDailyTodoCount() {
