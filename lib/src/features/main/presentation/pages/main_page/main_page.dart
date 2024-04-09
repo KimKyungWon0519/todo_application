@@ -24,7 +24,10 @@ class MainPage extends StatelessWidget {
             const Expanded(
               child: TodoListView(),
             ),
-            Text(packageInfo.version)
+            Align(
+              alignment: Alignment.center,
+              child: Text(packageInfo.version),
+            )
           ],
         ),
       ),
