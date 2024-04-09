@@ -95,10 +95,14 @@ class MainViewModel extends StateNotifier<TodoState> {
   }
 
   void _updateTodos() {
+    final List<Todo> todayTodo = _getTodoUseCase.getTodayTodo(DateTime.now());
+    final List<Todo> notAchievedTodo = _getTodoUseCase.getNotAchievedTodos();
+    final List<Todo> achievedTodo = _getTodoUseCase.getAchievedTodos();
+
     state = TodoState(
-      todos: _getTodoUseCase.getTodos(),
-      todayTodoCnt: _getTodoUseCase.getTodayTodo(DateTime.now()).length,
-      notAchievedTodoCnt: _getTodoUseCase.getNotAchievedTodos().length,
+      todos: todayTodo + notAchievedTodo + achievedTodo,
+      todayTodoCnt: todayTodo.length,
+      notAchievedTodoCnt: notAchievedTodo.length,
     );
   }
 }

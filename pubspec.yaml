@@ -42,6 +42,7 @@ dependencies:
   freezed_annotation: ^2.4.1
   path_provider: ^2.1.1
   mockito: ^5.4.4
+  package_info_plus: ^5.0.1
 
 dev_dependencies:
   flutter_test:
