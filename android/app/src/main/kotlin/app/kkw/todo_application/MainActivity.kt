@@ -1,4 +1,4 @@
-package todo_application.app.kkw.todo_application
+package app.kkw.todo_application
 
 import io.flutter.embedding.android.FlutterActivity
 
